@@ -1,12 +1,14 @@
+import { useState } from "react";
 import OAuthButton from "./components/OAuthButton";
 import ErrorBanner from "./components/ErrorBanner";
-import { useState } from "react";
+import AdForm from "./components/AdForm";
 
 function App() {
   const [error, setError] = useState(null);
   const [token, setToken] = useState(
     localStorage.getItem("tiktok_access_token")
   );
+  const [adData, setAdData] = useState(null);
 
   return (
     <div style={{ maxWidth: "600px", margin: "40px auto" }}>
@@ -14,11 +16,17 @@ function App() {
 
       {error && <ErrorBanner message={error} />}
 
-      {!token ? (
+      {!token && (
         <OAuthButton setError={setError} setToken={setToken} />
-      ) : (
+      )}
+
+      {token && !adData && (
+        <AdForm onSubmit={setAdData} />
+      )}
+
+      {adData && (
         <p style={{ color: "green" }}>
-          ✅ TikTok Ads account connected
+          Ad details saved successfully
         </p>
       )}
     </div>
