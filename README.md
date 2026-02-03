@@ -1,16 +1,98 @@
-# React + Vite
+# TikTok Ads Creative Flow – Frontend Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
+This project is a frontend-only application that simulates a simplified **TikTok Ads creative creation flow**.
 
-Currently, two official plugins are available:
+The goal of this assignment is **not** to build a complete Ads Manager, but to demonstrate:
+- OAuth integration understanding
+- Conditional validation logic
+- Real-world API failure handling
+- Clear, user-friendly error communication
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Visual polish is intentionally kept minimal to focus on correctness and reasoning.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features Implemented
 
-## Expanding the ESLint configuration
+### 1. TikTok OAuth Integration (Simulated)
+- “Connect TikTok Ads Account” button
+- OAuth Authorization Code flow simulation
+- Callback handling using `?code=valid`
+- Access token storage using `localStorage`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> ⚠️ **Note:** TikTok Ads APIs are geo-restricted in India.  
+> Due to this limitation, the OAuth token exchange and API calls are **mocked**, while still following the real OAuth flow structure.
+
+---
+
+### 2. Ad Creation Form (Single Page)
+The app provides a single-page form with the following validations:
+
+| Field | Validation Rule |
+|-----|----------------|
+| Campaign Name | Required, minimum 3 characters |
+| Objective | Traffic or Conversions |
+| Ad Text | Required, maximum 100 characters |
+| CTA | Required |
+| Music Option | Conditional logic enforced |
+
+All field-level validation errors are displayed inline.
+
+---
+
+### 3. Music Selection Logic (Key Requirement)
+
+The app supports **all three required music options**:
+
+#### Option A: Existing Music ID
+- User enters a Music ID
+- ID is validated via a mocked API
+- Invalid IDs block submission with a clear error message
+
+#### Option B: Upload / Custom Music
+- No real file upload required
+- A mock Music ID is generated
+- ID is validated via mocked API
+- Rejection is handled with user-friendly messaging
+
+#### Option C: No Music
+- ✅ Allowed only when Objective = **Traffic**
+- ❌ Blocked when Objective = **Conversions**
+- This rule is enforced both in the UI and validation logic
+
+---
+
+### 4. Submission & Error Handling
+On submission, the app simulates a TikTok Ads API call and gracefully handles:
+
+- Invalid or expired OAuth token
+- Missing permissions
+- Invalid Music ID
+- Geo-restriction errors (403)
+
+---
+
+## 🎨 UX & Error Handling
+- **Field-level errors** → displayed inline near inputs
+- **System-level errors** → displayed in a global error banner
+- No raw API error JSON is exposed to users
+- All errors guide users on how to fix the issue
+
+---
+
+## 🛠 Tech Stack
+- **React**
+- **Vite**
+- **JavaScript**
+- **CSS (minimal styling)**
+
+No backend services are used.
+
+---
+
+## ▶️ How to Run the Project
+
+```bash
+npm install
+npm run dev
