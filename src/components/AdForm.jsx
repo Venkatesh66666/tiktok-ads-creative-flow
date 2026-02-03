@@ -13,13 +13,11 @@ function AdForm({ onSubmit }) {
     const newErrors = {};
 
     if (campaignName.trim().length < 3) {
-      newErrors.campaignName =
-        "Campaign name must be at least 3 characters";
+      newErrors.campaignName = "Minimum 3 characters required";
     }
 
     if (!adText || adText.length > 100) {
-      newErrors.adText =
-        "Ad text is required and must be under 100 characters";
+      newErrors.adText = "Required (max 100 characters)";
     }
 
     if (!cta) {
@@ -27,7 +25,7 @@ function AdForm({ onSubmit }) {
     }
 
     if (!music) {
-      newErrors.music = "Please configure music for the ad.";
+      newErrors.music = "Please select a music option";
     }
 
     setErrors(newErrors);
@@ -51,60 +49,53 @@ function AdForm({ onSubmit }) {
     <form onSubmit={handleSubmit}>
       <h2>Create Ad</h2>
 
-      <div>
-        <label>Campaign Name</label>
-        <input
-          value={campaignName}
-          onChange={(e) => setCampaignName(e.target.value)}
-        />
-        {errors.campaignName && (
-          <p style={{ color: "red" }}>{errors.campaignName}</p>
-        )}
-      </div>
+      <label>Campaign Name</label>
+      <input
+        value={campaignName}
+        onChange={(e) => setCampaignName(e.target.value)}
+      />
+      {errors.campaignName && (
+        <div className="error-text">{errors.campaignName}</div>
+      )}
 
-      <div>
-        <label>Objective</label>
-        <select
-          value={objective}
-          onChange={(e) => setObjective(e.target.value)}
-        >
-          <option value="Traffic">Traffic</option>
-          <option value="Conversions">Conversions</option>
-        </select>
-      </div>
+      <label>Objective</label>
+      <select
+        value={objective}
+        onChange={(e) => setObjective(e.target.value)}
+      >
+        <option value="Traffic">Traffic</option>
+        <option value="Conversions">Conversions</option>
+      </select>
 
-      <div>
-        <label>Ad Text</label>
-        <textarea
-          value={adText}
-          onChange={(e) => setAdText(e.target.value)}
-        />
-        {errors.adText && (
-          <p style={{ color: "red" }}>{errors.adText}</p>
-        )}
-      </div>
+      <label>Ad Text</label>
+      <textarea
+        value={adText}
+        onChange={(e) => setAdText(e.target.value)}
+      />
+      {errors.adText && (
+        <div className="error-text">{errors.adText}</div>
+      )}
 
-      <div>
-        <label>CTA</label>
-        <input
-          value={cta}
-          onChange={(e) => setCta(e.target.value)}
-        />
-        {errors.cta && (
-          <p style={{ color: "red" }}>{errors.cta}</p>
-        )}
-      </div>
+      <label>CTA</label>
+      <input
+        value={cta}
+        onChange={(e) => setCta(e.target.value)}
+      />
+      {errors.cta && (
+        <div className="error-text">{errors.cta}</div>
+      )}
 
       <MusicSelector
         objective={objective}
         onMusicSelect={setMusic}
       />
-
       {errors.music && (
-        <p style={{ color: "red" }}>{errors.music}</p>
+        <div className="error-text">{errors.music}</div>
       )}
 
-      <button type="submit">Submit Ad</button>
+      <button type="submit" style={{ marginTop: "10px" }}>
+        Submit Ad
+      </button>
     </form>
   );
 }

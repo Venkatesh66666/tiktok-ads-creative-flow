@@ -2,11 +2,13 @@ function ErrorBanner({ message }) {
   return (
     <div
       style={{
-        backgroundColor: "#ffe5e5",
-        color: "#b00020",
+        backgroundColor: "#fee2e2",
+        color: "#991b1b",
         padding: "10px",
+        borderRadius: "8px",
         marginBottom: "16px",
-        borderRadius: "4px",
+        fontSize: "14px",
+        textAlign: "center",
       }}
     >
       {message}

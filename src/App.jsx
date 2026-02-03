@@ -10,25 +10,30 @@ function App() {
     localStorage.getItem("tiktok_access_token")
   );
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   async function handleAdSubmit(adData) {
     setError(null);
-    setLoading(true);
-
     try {
       await submitAd(adData, token);
       setSubmitted(true);
     } catch (err) {
       setError(err.message);
-    } finally {
-      setLoading(false);
     }
   }
 
   return (
-    <div style={{ maxWidth: "600px", margin: "40px auto" }}>
-      <h1>TikTok Ads Creative Flow</h1>
+    <div
+      style={{
+        background: "#ffffff",
+        width: "420px",
+        padding: "28px",
+        borderRadius: "14px",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+      }}
+    >
+      <h1 style={{ textAlign: "center" }}>
+        TikTok Ads Creative Flow
+      </h1>
 
       {error && <ErrorBanner message={error} />}
 
@@ -37,11 +42,17 @@ function App() {
       )}
 
       {token && !submitted && (
-        <AdForm onSubmit={handleAdSubmit} loading={loading} />
+        <AdForm onSubmit={handleAdSubmit} />
       )}
 
       {submitted && (
-        <p style={{ color: "green" }}>
+        <p
+          style={{
+            textAlign: "center",
+            color: "green",
+            fontWeight: "600",
+          }}
+        >
           ✅ Ad submitted successfully
         </p>
       )}

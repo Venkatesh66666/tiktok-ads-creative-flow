@@ -27,7 +27,7 @@ function OAuthButton({ setError, setToken }) {
 
   return (
     <button onClick={initiateOAuth}>
-      Connect TikTok Ads Account
+      🔐 Connect TikTok Ads Account
     </button>
   );
 }
