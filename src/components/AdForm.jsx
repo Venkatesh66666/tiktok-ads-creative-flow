@@ -1,10 +1,12 @@
 import { useState } from "react";
+import MusicSelector from "./MusicSelector";
 
 function AdForm({ onSubmit }) {
   const [campaignName, setCampaignName] = useState("");
   const [objective, setObjective] = useState("Traffic");
   const [adText, setAdText] = useState("");
   const [cta, setCta] = useState("");
+  const [music, setMusic] = useState(null);
   const [errors, setErrors] = useState({});
 
   function validate() {
@@ -24,6 +26,10 @@ function AdForm({ onSubmit }) {
       newErrors.cta = "CTA is required";
     }
 
+    if (!music) {
+      newErrors.music = "Please configure music for the ad.";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
@@ -37,6 +43,7 @@ function AdForm({ onSubmit }) {
       objective,
       adText,
       cta,
+      music,
     });
   }
 
@@ -88,7 +95,16 @@ function AdForm({ onSubmit }) {
         )}
       </div>
 
-      <button type="submit">Next</button>
+      <MusicSelector
+        objective={objective}
+        onMusicSelect={setMusic}
+      />
+
+      {errors.music && (
+        <p style={{ color: "red" }}>{errors.music}</p>
+      )}
+
+      <button type="submit">Submit Ad</button>
     </form>
   );
 }
